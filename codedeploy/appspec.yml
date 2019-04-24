@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: app/index.html
+    destination: /var/www/html/
+  - source: scripts/test.sh
+    destination: /tmp/
+hooks:
+  ApplicationStart:
+    - location: scripts/test.sh
+      timeout: 300
+      runas: root
