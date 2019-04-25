@@ -1,4 +1,4 @@
-### 前提
+### 環境
 ![CodeDeploy](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2019/04/sa20190410-00.png)
 
 ### 前提
