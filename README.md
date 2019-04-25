@@ -1,9 +1,12 @@
 ### 前提
-* 事前にEC2キーペアの作成
-* パラメータストアにてCloudWatch Agentの設定を格納
+![CodeDeploy](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2019/04/sa20190410-00.png)
+
+### 前提
+* EC2キーペアが作成済みであること
+* CloudWatch Agentの設定がパラメータストアに格納済みであること
 
 ### AMI作成
-$ AMI_NAME=*AMI名*  
+$ AMI_NAME=*作成するAMI名*  
 $ echo ${AMI_NAME}  
 $ cd packer  
 $ packer validate -var ami-name=${AMI_NAME} template.json  
@@ -16,9 +19,9 @@ $ echo ${LAUNCH_CONFIG_IMAGE_ID}
 $ STACK_NAME=*作成するスタック名*  
 $ TEMPLATE_DIR=../cloudformation/  
 $ TEMPLATE_NAME=template.yml  
-$ PRM_NAME=*作成したSSMパラメータ名*  
+$ PRM_NAME=*作成済みのSSMパラメータ名*  
 $ PROJECT_NAME=*AWSリソース名に付与するプレフィックス*  
-$ EC2_KEY_PAIR=*事前に作成したEC2キーペア名*  
+$ EC2_KEY_PAIR=*作成済みのEC2キーペア名*  
 $ SNS_SUBSCRIPTION=*SNSサブスクリプションに設定するメールアドレス*  
 $ aws cloudformation create-stack \  
   --stack-name ${STACK_NAME} \  
@@ -28,6 +31,7 @@ $ aws cloudformation create-stack \
     ParameterKey=launchConfigImageId,ParameterValue=${LAUNCH_CONFIG_IMAGE_ID} \  
     ParameterKey=projectName,ParameterValue=${PROJECT_NAME} \  
     ParameterKey=snsSubscription,ParameterValue=${SNS_SUBSCRIPTION} \  
+    ParameterKey=parameterName,ParameterValue=${PRM_NAME} \  
   --capabilities 'CAPABILITY_NAMED_IAM'  
 
 ### デプロイグループ作成
